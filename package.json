@@ -1,7 +1,7 @@
 {
   "name": "sauce-test-runner",
   "description": "Node module for running tests using Sauce Labs. Supports QUnit, Jasmine and Mocha tests",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "author": {
     "name": "Marc Neander",
     "email": "marc.neander@bytbil.com"
