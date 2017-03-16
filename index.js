@@ -1,10 +1,17 @@
-var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
 var Q = require('q');
 
 module.exports = function(config) {
+    var logger = config.logger || {
+        log: console.log,
+        debug: console.log
+    }
+
+    if (config.debug === false) {
+        logger.debug = () => (true);
+    }
+
     var framework = (config) ? config.framework : undefined;
-    var sauce = require('./tasks/saucelabs')(gulp, plugins, config)
+    var sauce = require('./tasks/saucelabs')(logger, config)
 
     var callbackDone = function(deferred) {
         return function(passed) {
@@ -25,9 +32,7 @@ module.exports = function(config) {
     }
 
     if(!framework) {
-        throw new plugins.util.PluginError('gulp-saucelabs', {
-            message: 'Framework not specified.'
-        })
+        throw new Error('Framework not specified.')
     }
 
     var deferred = Q.defer();

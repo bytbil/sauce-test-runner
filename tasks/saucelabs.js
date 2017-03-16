@@ -1,23 +1,23 @@
 'use strict';
+var colors = require('chalk');
 
-module.exports = function (gulp, plugins, config) {
+module.exports = function (logger, config) {
     var Q = require('q');
     var SauceTunnel = require('sauce-connect-tunnel');
-    var TestRunner = require('../src/TestRunner')(gulp);
-    var colors = plugins.util.colors;
+    var TestRunner = require('../src/TestRunner')(logger);
     var SUCCESS = 'ok';
     var ERROR = 'error';
     var WARN = 'warning';
 
     var log = function (title, text, level) {
         if (level === 'ok') {
-            plugins.util.log(colors.green(title), text);
+            logger.log(colors.green(title), text);
         } else if (level === 'error') {
-            plugins.util.log(colors.red(title), text);
+            logger.log(colors.red(title), text);
         } else if (level === 'warning') {
-            plugins.util.log(colors.yellow(title), text);
+            logger.log(colors.yellow(title), text);
         } else {
-            plugins.util.log(title);
+            logger.log(title);
         }
     }
 
@@ -38,9 +38,9 @@ module.exports = function (gulp, plugins, config) {
                 break;
             case 'tunnelEvent':
                 if (notification.verbose) {
-                    plugins.debug(notification.text);
+                    logger.debug(notification.text);
                 } else {
-                    plugins.debug(notification.text);
+                    logger.debug(notification.text);
                 }
                 break;
             case 'jobStarted':
@@ -65,7 +65,7 @@ module.exports = function (gulp, plugins, config) {
                 }
                 break;
             case 'retrying':
-                plugins.debug('Timed out, retrying URL ' + notification.url + ' on browser ' + JSON.stringify(notification.browser));
+                logger.debug('Timed out, retrying URL ' + notification.url + ' on browser ' + JSON.stringify(notification.browser), STATUS);
                 break;
             default:
                 log('Error:', 'Unexpected notification type', STATUS);
@@ -161,9 +161,7 @@ module.exports = function (gulp, plugins, config) {
                     callbackDone(passed);
                 },
                 function (error) {
-                    throw new plugins.util.PluginError('gulp-saucelabs', {
-                        message: error.stack || error.toString()
-                    })
+                    log('FAIL:', error.stack || error.toString() || 'unable to start testsuite', ERROR);
                 }
             )
             .done();
@@ -206,6 +204,7 @@ module.exports = function (gulp, plugins, config) {
 
     return (framework, cbDone, cbExcept) => {
         const options = Object.assign({}, defaults, config);
+        console.log(options)
         runTask(options, framework, cbDone, cbExcept);
     };
 
