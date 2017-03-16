@@ -10,38 +10,45 @@ npm install --save-dev sauce-test-runner
 ```
 
 ## Usages
-### Simple Usage
+### Simple Usage with gulp
 ```javascript
-const saucelabsRunner = require('sauce-test-runner');
-const connect   = require('connect');
-
-// Saucelabs
-const config = {
-    urls: ['http://localhost:3000/tests/qunit/index.html'],
-    testname: 'My test',
-    framework: 'qunit',
-    browsers: [
-        {
-            browserName: "MicrosoftEdge",
-            platform: "Windows 10",
-            version: "latest"
-        }
-    ],
-    onTestSuiteComplete: (status) => {
-        if (status) {
-            console.log('All tests passed!');
-        }
-    };
-}
-
-// Start local http server
-connect.server({ port: 3000, root: './' });
-// Run the specified tests
-saucelabsRunner(config).done((status)=>{
-    // testsuite completed
-})
-// Close local http server
-connect.serverClose();
+const saucelabs = require('gulp-saucelabs');
+const connect   = require('gulp-connect');
+ 
+// Saucelabs 
+gulp.task('saucelabs', () => {
+    const config = {
+      urls: ['http://localhost:3000/tests/qunit/index.html'],
+      testname: 'My test',
+      framework: 'qunit',
+      browsers: [
+          {
+              browserName: "MicrosoftEdge",
+              platform: "Windows 10",
+              version: "latest"
+          }
+      ],
+      onTestSuiteComplete: (status) => {
+          if (status) {
+              console.log('All tests passed!');
+          }
+      };
+    }
+ 
+    return saucelabs(config);
+});
+ 
+// Start local http server 
+gulp.task('connect', () => {
+    connect.server({ port: 3000, root: './' });
+});
+ 
+// Close down the http server 
+gulp.task('disconnect', () => {
+    connect.serverClose();
+});
+ 
+gulp.task('test-saucelabs', ['connect', 'saucelabs'], () => gulp.start('disconnect'));
 ```
 
 ## Options
@@ -53,6 +60,11 @@ const config = {
     urls: ['http://localhost:3000/tests/index.html'],
     testname: 'My test',
     framework: 'qunit',
+    logger: {
+        log: console.log,
+        debug: console.log,
+    },
+    debug: false,
     browsers: [
         {
             browserName: "MicrosoftEdge",
@@ -132,6 +144,12 @@ A callback that is called when the tunnel does not close properly and we had to 
 
 #### `onTestSuiteComplete`
 A callback that is called when all tests have run and the tunnel has been closed down. The callback receives one argument (boolean) which is true if all tests passed, otherwise false.
+
+#### `logger`
+Logger functions, used to print the test output. The logger object needs to define two methods: log and debug which take a sequence of strings as arguments. Defaults to console.log.
+
+#### `debug`
+Specifies if the module should invoke logger.debug to print saucelabs tunnel info messages.
 
 #### `maxRetries`
 Specifies how many times the timed out tests should be retried (default: 0). _Optional_

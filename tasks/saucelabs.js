@@ -4,7 +4,7 @@ var colors = require('chalk');
 module.exports = function (logger, config) {
     var Q = require('q');
     var SauceTunnel = require('sauce-connect-tunnel');
-    var TestRunner = require('../src/TestRunner');
+    var TestRunner = require('../src/TestRunner')(logger);
     var SUCCESS = 'ok';
     var ERROR = 'error';
     var WARN = 'warning';
@@ -161,7 +161,7 @@ module.exports = function (logger, config) {
                     callbackDone(passed);
                 },
                 function (error) {
-                    log('FAIL:', error.stack || error.toString(), ERROR);
+                    log('FAIL:', error.stack || error.toString() || 'unable to start testsuite', ERROR);
                 }
             )
             .done();

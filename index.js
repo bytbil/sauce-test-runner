@@ -2,8 +2,12 @@ var Q = require('q');
 
 module.exports = function(config) {
     var logger = config.logger || {
-        log: function(msg) { console.log('default', msg) },
-        debug: (msg) => function(msg) {'default', console.log(msg) }
+        log: console.log,
+        debug: console.log
+    }
+
+    if (config.debug === false) {
+        logger.debug = () => (true);
     }
 
     var framework = (config) ? config.framework : undefined;
