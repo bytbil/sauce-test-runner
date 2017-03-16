@@ -1,55 +1,47 @@
-# gulp-saucelabs
-[![Build Status](https://travis-ci.org/bytbil/gulp-saucelabs.svg)](https://travis-ci.org/bytbil/gulp-saucelabs)
+# sauce-test-runner
+[![Build Status](https://travis-ci.org/bytbil/sauce-test-runner.svg)](https://travis-ci.org/bytbil/sauce-test-runner)
 
-Gulp plugin for running tests using SauceLabs automated tests feature to run on several different browsers
+Node module for running tests using SauceLabs automated tests feature to run on several different browsers
 
 ## Install
 
 ```
-npm install --save-dev gulp-saucelabs
+npm install --save-dev sauce-test-runner
 ```
 
-
-## Usage
+## Usages
 ### Simple Usage
 ```javascript
-const saucelabs = require('gulp-saucelabs');
-const connect   = require('gulp-connect');
+const saucelabsRunner = require('sauce-test-runner');
+const connect   = require('connect');
 
 // Saucelabs
-gulp.task('saucelabs', () => {
-    const config = {
-      urls: ['http://localhost:3000/tests/qunit/index.html'],
-      testname: 'My test',
-      framework: 'qunit',
-      browsers: [
-          {
-              browserName: "MicrosoftEdge",
-              platform: "Windows 10",
-              version: "latest"
-          }
-      ],
-      onTestSuiteComplete: (status) => {
-          if (status) {
-              console.log('All tests passed!');
-          }
-      };
-    }
-
-    return saucelabs(config);
-});
+const config = {
+    urls: ['http://localhost:3000/tests/qunit/index.html'],
+    testname: 'My test',
+    framework: 'qunit',
+    browsers: [
+        {
+            browserName: "MicrosoftEdge",
+            platform: "Windows 10",
+            version: "latest"
+        }
+    ],
+    onTestSuiteComplete: (status) => {
+        if (status) {
+            console.log('All tests passed!');
+        }
+    };
+}
 
 // Start local http server
-gulp.task('connect', () => {
-    connect.server({ port: 3000, root: './' });
-});
-
-// Close down the http server
-gulp.task('disconnect', () => {
-    connect.serverClose();
-});
-
-gulp.task('test-saucelabs', ['connect', 'saucelabs'], () => gulp.start('disconnect'));
+connect.server({ port: 3000, root: './' });
+// Run the specified tests
+saucelabsRunner(config).done((status)=>{
+    // testsuite completed
+})
+// Close local http server
+connect.serverClose();
 ```
 
 ## Options
