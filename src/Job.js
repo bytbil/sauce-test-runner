@@ -1,9 +1,9 @@
 'use strict';
 
-module.exports = function (gulp, plugins) {
+module.exports = function (logger) {
   var Q = require('q');
   var _ = require('lodash');
-  var utils = require('./utils')(gulp, plugins);
+  var utils = require('./utils')(logger);
   var reJobId = /^[a-z0-9]{32}$/;
 
   Q.longStackSupport = true;

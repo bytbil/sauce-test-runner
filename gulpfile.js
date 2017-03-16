@@ -15,7 +15,7 @@ var browsers = [
 
 function callbackSuccess(status) {
     if(!status) {
-        throw new $.gutil.PluginError({
+        throw new plugins.gutil.PluginError({
             plugin: 'gulp-saucelabs',
             message: 'Tests failed'
         });
@@ -24,7 +24,7 @@ function callbackSuccess(status) {
 
 function callbackFail(status) {
     if (status) {
-        throw new $.gutil.PluginError({
+        throw new plugins.gutil.PluginError({
             plugin: 'gulp-saucelabs',
             message: 'Tests failed'
         });
@@ -37,6 +37,7 @@ var config = {
         framework: 'qunit',
         urls: ['http://localhost:3000/test/qunit/index.html'],
         onTestSuiteComplete: callbackSuccess,
+        debug: false,
         browsers
     },
     qunitFail: {
@@ -44,6 +45,7 @@ var config = {
         framework: 'qunit',
         urls: ['http://localhost:3000/test/qunit/fails.html'],
         onTestSuiteComplete: callbackFail,
+        debug: false,
         browsers
     },
     jasmine: {
@@ -51,6 +53,7 @@ var config = {
         framework: 'jasmine',
         urls: ['http://localhost:3000/test/jasmine/succeeds.html'],
         onTestSuiteComplete: callbackSuccess,
+        debug: false,
         browsers
     },
     jasmineFail: {
@@ -58,6 +61,7 @@ var config = {
         framework: 'jasmine',
         urls: ['http://localhost:3000/test/jasmine/fails.html'],
         onTestSuiteComplete: callbackFail,
+        debug: false,
         browsers
     },
     mocha: {
@@ -65,6 +69,7 @@ var config = {
         framework: 'mocha',
         urls: ['http://localhost:3000/test/mocha/test/browser/index.html'],
         onTestSuiteComplete: callbackSuccess,
+        debug: false,
         browsers
     },
     mochaFail: {
@@ -72,6 +77,7 @@ var config = {
         framework: 'mocha',
         urls: ['http://localhost:3000/test/mocha/test/browser/fails.html'],
         onTestSuiteComplete: callbackFail,
+        debug: false,
         browsers
     }
 }

@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (gulp, plugins) {
+module.exports = function (logger) {
   var q = require('q');
   var request = require('requestretry');
   var WrapperError = require('./WrapperError');
@@ -66,7 +66,7 @@ module.exports = function (gulp, plugins) {
    */
   function loggingRetryStrategy(err /*, response*/) {
     if (err && err.code === 'ECONNRESET') {
-      plugins.debug({title: 'Transient network error (' + err.code + ')'});
+      logger.debug({title: 'Transient network error (' + err.code + ')'});
       return true;
     }
     return false;
