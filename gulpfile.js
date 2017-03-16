@@ -37,6 +37,7 @@ var config = {
         framework: 'qunit',
         urls: ['http://localhost:3000/test/qunit/index.html'],
         onTestSuiteComplete: callbackSuccess,
+        logger: plugins.util,
         browsers
     },
     qunitFail: {
@@ -44,6 +45,7 @@ var config = {
         framework: 'qunit',
         urls: ['http://localhost:3000/test/qunit/fails.html'],
         onTestSuiteComplete: callbackFail,
+        logger: plugins.util,
         browsers
     },
     jasmine: {
@@ -51,6 +53,7 @@ var config = {
         framework: 'jasmine',
         urls: ['http://localhost:3000/test/jasmine/succeeds.html'],
         onTestSuiteComplete: callbackSuccess,
+        logger: plugins.util,
         browsers
     },
     jasmineFail: {
@@ -58,6 +61,7 @@ var config = {
         framework: 'jasmine',
         urls: ['http://localhost:3000/test/jasmine/fails.html'],
         onTestSuiteComplete: callbackFail,
+        logger: plugins.util,
         browsers
     },
     mocha: {
@@ -65,6 +69,7 @@ var config = {
         framework: 'mocha',
         urls: ['http://localhost:3000/test/mocha/test/browser/index.html'],
         onTestSuiteComplete: callbackSuccess,
+        logger: plugins.util,
         browsers
     },
     mochaFail: {
@@ -72,6 +77,7 @@ var config = {
         framework: 'mocha',
         urls: ['http://localhost:3000/test/mocha/test/browser/fails.html'],
         onTestSuiteComplete: callbackFail,
+        logger: plugins.util,
         browsers
     }
 }
