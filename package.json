@@ -1,23 +1,23 @@
 {
-  "name": "gulp-saucelabs",
-  "description": "Gulp task running tests using Sauce Labs. Supports QUnit, Jasmine and Mocha tests",
-  "version": "0.1.4",
+  "name": "sauce-test-runner",
+  "description": "Node module for running tests using Sauce Labs. Supports QUnit, Jasmine and Mocha tests",
+  "version": "0.1.5",
   "author": {
     "name": "Marc Neander",
     "email": "marc.neander@bytbil.com"
   },
-  "homepage": "https://github.com/bytbil/gulp-saucelabs",
+  "homepage": "https://github.com/bytbil/sauce-test-runner",
   "repository": {
     "type": "git",
-    "url": "git://github.com/bytbil/gulp-saucelabs.git"
+    "url": "git://github.com/bytbil/sauce-test-runner.git"
   },
   "bugs": {
-    "url": "https://github.com/bytbil/gulp-saucelabs/issues"
+    "url": "https://github.com/bytbil/sauce-test-runner/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/bytbil/gulp-saucelabs/blob/develop/LICENSE"
+      "url": "https://github.com/bytbil/sauce-test-runner/blob/develop/LICENSE"
     }
   ],
   "engines": {
@@ -45,7 +45,6 @@
     "publish": "^0.3.2"
   },
   "keywords": [
-    "gulp",
     "saucelabs",
     "test",
     "jasmine",
