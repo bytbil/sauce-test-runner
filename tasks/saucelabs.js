@@ -204,7 +204,6 @@ module.exports = function (logger, config) {
 
     return (framework, cbDone, cbExcept) => {
         const options = Object.assign({}, defaults, config);
-        console.log(options)
         runTask(options, framework, cbDone, cbExcept);
     };
 
