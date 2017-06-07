@@ -165,9 +165,8 @@ Forked from https://github.com/axemclion/grunt-saucelabs
 Changelog
 ---------
 
-####0.1.4
+###0.1.4
 Added callback and timeout for when the tunnel does not stop
 
-####0.1.3
-
+###0.1.3
 Removed YUI support
